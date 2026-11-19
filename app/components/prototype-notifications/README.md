@@ -4,6 +4,16 @@ Throwaway. Answers issue #7 ("what should the in-app notification experience loo
 and feel like?") and nothing else. Fake data, no Knock, no database, no
 persistence. The branch is `prototype/in-app-notifications`; it is never merged.
 
+## Verdict
+
+**Variant A — Sidebar inbox** was chosen (2026-11-20), with two adjustments:
+
+- the bell carries the count; the sidebar's Notifications item is plain;
+- a known zero **hides** the bell in A (superseding the bare-bell line in #5) —
+  the sidebar item keeps access.
+
+The full decision is recorded on issue #7.
+
 ## Run it
 
 ```bash
@@ -25,8 +35,9 @@ The floating bar at the bottom switches variant with the arrows or ← / →, an
 sets the simulated bell count and feed state.
 
 - **Bell** — `3` and `12` force a known count (`12` exercises the `9+` cap);
-  `0` gives a bare bell; `unknown` removes the bell entirely; `live unseen`
-  derives the count from the in-memory feed, so it clears when a panel opens.
+  `0` hides the bell in A (B and C still render a bare bell); `unknown` removes
+  the bell entirely; `live unseen` derives the count from the in-memory feed, so
+  it clears when a panel opens.
 - **Feed** — `items`, `all read`, `empty` (new account), `error` (failed fetch,
   never the empty state).
 - **Reset** reseeds the fake feed and the counts.

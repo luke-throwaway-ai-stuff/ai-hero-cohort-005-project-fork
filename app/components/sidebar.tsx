@@ -165,10 +165,7 @@ export function Sidebar({
 
       <nav className="flex-1 space-y-1 p-3">
         {/* PROTOTYPE — the always-visible Notifications item. */}
-        <PrototypeNotificationsNavItem
-          role={currentUserRole}
-          isTeamAdmin={isTeamAdmin}
-        />
+        <PrototypeNotificationsNavItem role={currentUserRole} />
         {navItems
           .filter((item) => isVisible(item, currentUserRole))
           .map((item) => (

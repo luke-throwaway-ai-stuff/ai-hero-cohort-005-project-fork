@@ -11,8 +11,8 @@ import { NavLink } from "react-router";
 import type { UserRole } from "~/db/schema";
 import { cn } from "~/lib/utils";
 import { useFeed } from "./store";
-import { feedKeyFor, type FeedKey } from "./data";
-import { resolveCount, usePrototypeParams, type PrototypeParams } from "./params";
+import { feedKeyFor } from "./data";
+import { usePrototypeParams, type PrototypeParams } from "./params";
 import { BellA } from "./variant-a";
 import { BellB } from "./variant-b";
 import { BellC } from "./variant-c";
@@ -54,21 +54,8 @@ export function PrototypeUserBell({ role, isTeamAdmin }: SlotProps) {
 }
 
 /** Settled: the sidebar always carries a Notifications item, all four roles. */
-export function PrototypeNotificationsNavItem({
-  role,
-  isTeamAdmin,
-}: {
-  role: UserRole | null;
-  isTeamAdmin: boolean;
-}) {
+export function PrototypeNotificationsNavItem({ role }: { role: UserRole | null }) {
   const params: PrototypeParams = usePrototypeParams();
-  const feedKey: FeedKey | null = feedKeyFor(role, isTeamAdmin);
-  const items = useFeed(feedKey);
-  const unseen =
-    params.feed === "empty" || params.feed === "allread"
-      ? 0
-      : items.filter((item) => !item.seen).length;
-  const count = resolveCount(params.count, unseen);
 
   const search = new URLSearchParams({
     variant: params.variant,
@@ -91,11 +78,6 @@ export function PrototypeNotificationsNavItem({
     >
       <Bell className="size-4" />
       Notifications
-      {count !== null && count > 0 && (
-        <span className="ml-auto rounded-full bg-sidebar-accent px-1.5 text-[10px] font-semibold text-sidebar-accent-foreground">
-          {count > 9 ? "9+" : count}
-        </span>
-      )}
     </NavLink>
   );
 }

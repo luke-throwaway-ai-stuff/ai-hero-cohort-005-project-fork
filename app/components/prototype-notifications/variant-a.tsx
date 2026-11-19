@@ -35,13 +35,15 @@ export interface BellProps {
 
 export function BellA({ feedKey, unseen, params }: BellProps) {
   const count = resolveCount(params.count, unseen);
-  if (count === null) return null;
+  // Variant A hides the bell at a known zero: with the header placement it reads
+  // as a status light, and the sidebar's Notifications item still gives access.
+  if (count === null || count === 0) return null;
 
   return (
     <div className="relative">
       <button
         type="button"
-        aria-label={`Notifications${count > 0 ? `, ${count} new` : ""}`}
+        aria-label={`Notifications, ${count} new`}
         onClick={() => {
           if (params.open) {
             params.setParams({ open: false });
@@ -56,11 +58,9 @@ export function BellA({ feedKey, unseen, params }: BellProps) {
         )}
       >
         <Bell className="size-4" />
-        {count > 0 && (
-          <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-primary px-1 text-[10px] font-semibold leading-none text-primary-foreground">
-            {countLabel(count)}
-          </span>
-        )}
+        <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-primary px-1 text-[10px] font-semibold leading-none text-primary-foreground">
+          {countLabel(count)}
+        </span>
       </button>
       {params.open && <PopoverA feedKey={feedKey} params={params} />}
     </div>
