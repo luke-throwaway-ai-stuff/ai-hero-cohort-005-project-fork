@@ -3,6 +3,13 @@ import { useState, useEffect } from "react";
 import { cn } from "~/lib/utils";
 import { UserRole } from "~/db/schema";
 import { UserAvatar } from "~/components/user-avatar";
+// PROTOTYPE — remove these three imports when the notification UX prototype is captured.
+import {
+  PrototypeHeaderBell,
+  PrototypeNotificationsNavItem,
+  PrototypeUserBell,
+  PrototypeWordmarkBell,
+} from "~/components/prototype-notifications/bell";
 import {
   BookOpen,
   ChartColumn,
@@ -140,9 +147,28 @@ export function Sidebar({
         <NavLink to="/" className="text-lg font-bold tracking-tight">
           Cadence
         </NavLink>
+        {/* PROTOTYPE — variant C's count capsule lives next to the wordmark. */}
+        <span className="ml-2">
+          <PrototypeWordmarkBell
+            role={currentUserRole}
+            isTeamAdmin={isTeamAdmin}
+          />
+        </span>
+        {/* PROTOTYPE — variant A's bell sits at the far right of the header. */}
+        <span className="ml-auto">
+          <PrototypeHeaderBell
+            role={currentUserRole}
+            isTeamAdmin={isTeamAdmin}
+          />
+        </span>
       </div>
 
       <nav className="flex-1 space-y-1 p-3">
+        {/* PROTOTYPE — the always-visible Notifications item. */}
+        <PrototypeNotificationsNavItem
+          role={currentUserRole}
+          isTeamAdmin={isTeamAdmin}
+        />
         {navItems
           .filter((item) => isVisible(item, currentUserRole))
           .map((item) => (
@@ -249,6 +275,11 @@ export function Sidebar({
             >
               <Settings className="size-4" />
             </NavLink>
+            {/* PROTOTYPE — variant B's bell sits in the user row. */}
+            <PrototypeUserBell
+              role={currentUserRole}
+              isTeamAdmin={isTeamAdmin}
+            />
             <Form method="post" action="/api/logout">
               <button
                 type="submit"
