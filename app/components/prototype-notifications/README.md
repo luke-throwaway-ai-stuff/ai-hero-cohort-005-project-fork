@@ -20,15 +20,16 @@ The full decision is recorded on issue #7.
 npm run dev
 ```
 
-Open <http://localhost:5173/prototype/notifications> and pick a user in the DevUI
-panel (bottom right). The bell lives in the real sidebar on every page while this
+Open <http://localhost:5173/notifications> (the throwaway source is also
+reachable at `/prototype/notifications`) and pick a user in the DevUI panel
+(bottom right). The bell lives in the real sidebar on every page while this
 branch is checked out, so you can also browse to a course or the dashboard and
 open it there.
 
 URL state is shareable:
 
 ```
-/prototype/notifications?variant=a|b|c&count=3|12|0|unknown|auto&feed=items|allread|empty|error&open=0|1
+/notifications?variant=a|b|c&count=3|12|0|unknown|auto&feed=items|allread|empty|error&open=0|1
 ```
 
 The floating bar at the bottom switches variant with the arrows or ← / →, and

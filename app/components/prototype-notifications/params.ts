@@ -105,7 +105,7 @@ export function pageHref(params: {
     feed: params.feed,
     open: "0",
   });
-  return `/prototype/notifications?${search.toString()}`;
+  return `/notifications?${search.toString()}`;
 }
 
 /**
